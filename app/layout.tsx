@@ -26,7 +26,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#f5e6d3" />
         <meta name="color-scheme" content="light dark" />
       </head>
-      <body className="relative min-h-screen overflow-x-hidden">
+      <body className="relative min-h-screen overflow-x-hidden" suppressHydrationWarning>
         {children}
       </body>
     </html>

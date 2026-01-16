@@ -27,40 +27,84 @@ export default function MandalavyuhaPage() {
     }
   }, []);
 
+  const modeContent = {
+    build: {
+      title: "Geometric Assembly",
+      items: [
+        "Center square establishes core position",
+        "Four triangular units form cardinal points",
+        "Circular perimeter completes outer boundary",
+        "Sacred geometry alignment complete"
+      ]
+    },
+    simulate: {
+      title: "Defensive Sequence",
+      items: [
+        "Enemy approaches from any direction",
+        "Outer circle absorbs initial assault",
+        "Triangular units redirect force",
+        "Center square remains impenetrable"
+      ]
+    },
+    explain: {
+      zones: [
+        {
+          title: "Central Square",
+          desc: "The immovable core. Command center and last line of defense. Symbolizes cosmic order and stability."
+        },
+        {
+          title: "Cardinal Triangles",
+          desc: "Four directional units representing the elements. Channels and redirects attacking forces away from center."
+        },
+        {
+          title: "Outer Circle",
+          desc: "Perimeter defense. Absorbs initial impact and disperses enemy momentum across the formation."
+        }
+      ]
+    }
+  };
+
   return (
     <main className="min-h-screen relative">
       {/* Header */}
-      <header className="relative py-20 px-8 text-center border-b-2 border-[var(--border-vintage)]">
+      <header className="relative section-padding-sm border-b-2 border-[var(--border-vintage)]">
         <Link
           href="/"
-          className="absolute top-6 left-8 text-sm transition-colors"
+          className="absolute top-6 left-6 md:left-8 text-sm font-medium transition-all hover:text-[var(--saffron)] flex items-center gap-2"
           style={{ color: 'var(--brass)' }}
         >
-          ← Back to Home
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M15 10H5M5 10L10 5M5 10L10 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+          Back to Home
         </Link>
 
-        <div ref={titleRef} className="max-w-3xl mx-auto">
+        <div ref={titleRef} className="container-narrow text-center">
           <h1 
-            className="text-3xl md:text-5xl font-bold mb-3 tracking-widest uppercase"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-[0.15em] uppercase"
             style={{ color: 'var(--saffron)', textShadow: '0 2px 4px rgba(139, 111, 71, 0.2)' }}
           >
             Mandalavyuha
           </h1>
-          <div className="divider max-w-xs mx-auto my-5"></div>
-          <p className="text-base mb-6 font-medium tracking-wide" style={{ color: 'var(--brass)' }}>
-            The Defensive Mandala Ring
+          <div className="divider max-w-md mx-auto my-6"></div>
+          <p className="text-lg md:text-xl font-semibold tracking-wide mb-6" style={{ color: 'var(--brass)' }}>
+            The Sacred Geometric Formation
           </p>
-          <p className="max-w-xl mx-auto text-sm leading-relaxed" style={{ color: 'var(--ink-light)' }}>
-            The ultimate defensive circle inspired by the mandala's geometric perfection.
-            Concentric rings of soldiers expand outward from the command center, providing
-            graduated defense against multi-directional attacks.
+          <p className="max-w-3xl mx-auto text-base md:text-lg leading-relaxed" style={{ color: 'var(--ink-light)' }}>
+            Based on mandala cosmology, this formation combines circular perimeters with
+            geometric inner structures. The square represents earth and stability, triangles
+            represent fire and direction, and the circle represents unity and protection.
           </p>
         </div>
       </header>
 
-      {/* Navigation */}
-      <nav className="sticky top-0 z-40 backdrop-blur-sm border-b border-[var(--border-vintage)] py-4 px-8" style={{ backgroundColor: 'rgba(244, 228, 193, 0.95)' }}>
-        <div className="max-w-4xl mx-auto flex justify-center gap-4">
+      {/* Mode Navigation */}
+      <nav className="sticky top-0 z-50 backdrop-blur-md border-b-2 border-[var(--border-vintage)] py-4" 
+           style={{ 
+             backgroundColor: 'rgba(244, 228, 193, 0.98)',
+             boxShadow: '0 4px 16px rgba(139, 111, 71, 0.1)'
+           }}>
+        <div className="container-centered flex justify-center gap-4">
           {(["build", "simulate", "explain"] as const).map((m) => (
             <button
               key={m}
@@ -68,221 +112,200 @@ export default function MandalavyuhaPage() {
                 setMode(m);
                 setIsAnimating(true);
               }}
-              className="px-6 py-2 rounded-md font-semibold text-sm transition-all"
+              className="px-6 py-2.5 rounded-md font-bold text-sm transition-all"
               style={mode === m 
-                ? { backgroundColor: 'var(--saffron)', color: 'var(--parchment-light)' }
-                : { border: '1px solid var(--border-vintage)', color: 'var(--brass)' }
+                ? { 
+                    backgroundColor: 'var(--saffron)', 
+                    color: 'var(--parchment-light)', 
+                    boxShadow: '0 4px 12px rgba(196, 132, 29, 0.3)',
+                    transform: 'translateY(-2px)'
+                  }
+                : { 
+                    border: '2px solid var(--border-vintage)', 
+                    color: 'var(--brass)', 
+                    backgroundColor: 'var(--parchment-light)' 
+                  }
               }
             >
-              {m === "build" ? "Build" : m === "simulate" ? "Simulate" : "Explain"}
+              {m.charAt(0).toUpperCase() + m.slice(1)}
             </button>
           ))}
         </div>
       </nav>
 
-      {/* Main visualization area */}
-      <div className="max-w-5xl mx-auto px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-16">
-          {/* Visualization */}
-          <div className="lg:col-span-2">
-            <motion.div
-              key={mode}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              className="rounded-lg p-6"
-              style={{ 
-                background: 'linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%)',
-                border: '2px solid var(--border-vintage)',
-                boxShadow: '0 4px 20px var(--shadow-warm)'
-              }}
-            >
-              <MandalavyuhaVisual
-                width={500}
-                height={500}
-                animate={isAnimating}
-                mode={mode}
-              />
-            </motion.div>
-          </div>
-
-          {/* Information panel */}
-          <div className="lg:col-span-1">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-5"
-            >
-              {mode === "build" && (
-                <div 
-                  className="rounded-lg p-5"
-                  style={{ 
-                    background: 'linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%)',
-                    border: '1px solid var(--border-vintage)'
-                  }}
-                >
-                  <h3 className="text-base font-bold mb-4" style={{ color: 'var(--saffron)' }}>Construction</h3>
-                  <ul className="space-y-3 text-sm" style={{ color: 'var(--ink-light)' }}>
-                    <li className="flex gap-3">
-                      <span className="font-bold" style={{ color: 'var(--saffron)' }}>•</span>
-                      <span>Headquarters establishes central core</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="font-bold" style={{ color: 'var(--saffron)' }}>•</span>
-                      <span>Inner protective ring forms</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="font-bold" style={{ color: 'var(--saffron)' }}>•</span>
-                      <span>Secondary and outer rings expand</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="font-bold" style={{ color: 'var(--saffron)' }}>•</span>
-                      <span>Perfect symmetry achieved</span>
-                    </li>
-                  </ul>
-                </div>
-              )}
-
-              {mode === "simulate" && (
-                <div 
-                  className="rounded-lg p-5"
-                  style={{ 
-                    background: 'linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%)',
-                    border: '1px solid var(--border-vintage)'
-                  }}
-                >
-                  <h3 className="text-base font-bold mb-4" style={{ color: 'var(--saffron)' }}>Multi-Directional Defense</h3>
-                  <ul className="space-y-3 text-sm" style={{ color: 'var(--ink-light)' }}>
-                    <li className="flex gap-3">
-                      <span className="font-bold" style={{ color: 'var(--saffron)' }}>•</span>
-                      <span>Enemies attack from all directions</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="font-bold" style={{ color: 'var(--saffron)' }}>•</span>
-                      <span>Outer ring engages first</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="font-bold" style={{ color: 'var(--saffron)' }}>•</span>
-                      <span>Each ring strengthens defense</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="font-bold" style={{ color: 'var(--saffron)' }}>•</span>
-                      <span>Command center remains protected</span>
-                    </li>
-                  </ul>
-                </div>
-              )}
-
-              {mode === "explain" && (
-                <div className="space-y-4">
-                  <div 
-                    className="rounded-lg p-4"
-                    style={{ 
-                      background: 'linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%)',
-                      border: '1px solid var(--border-vintage)'
-                    }}
-                  >
-                    <h4 className="font-bold mb-2" style={{ color: 'var(--saffron)' }}>Outer Defense</h4>
-                    <p className="text-sm leading-relaxed" style={{ color: 'var(--ink-light)' }}>
-                      First contact layer. Absorbs enemy initial assault and determines threat level.
-                    </p>
-                  </div>
-                  <div 
-                    className="rounded-lg p-4"
-                    style={{ 
-                      background: 'linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%)',
-                      border: '1px solid var(--border-vintage)'
-                    }}
-                  >
-                    <h4 className="font-bold mb-2" style={{ color: 'var(--saffron)' }}>Secondary Ring</h4>
-                    <p className="text-sm leading-relaxed" style={{ color: 'var(--ink-light)' }}>
-                      Reinforces outer ring and redirects attacks away from command.
-                    </p>
-                  </div>
-                  <div 
-                    className="rounded-lg p-4"
-                    style={{ 
-                      background: 'linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%)',
-                      border: '1px solid var(--border-vintage)'
-                    }}
-                  >
-                    <h4 className="font-bold mb-2" style={{ color: 'var(--saffron)' }}>Command Center</h4>
-                    <p className="text-sm leading-relaxed" style={{ color: 'var(--ink-light)' }}>
-                      Protected by graduated rings. Strategic seat remains secure.
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              <button
-                onClick={() => setIsAnimating(!isAnimating)}
-                className="w-full px-4 py-3 rounded-md font-semibold hover:opacity-90 transition-all text-sm"
-                style={{ backgroundColor: 'var(--saffron)', color: 'var(--parchment-light)' }}
+      {/* Main Content */}
+      <div className="section-padding-lg">
+        <div className="container-wide">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            {/* Visualization */}
+            <div className="lg:col-span-2">
+              <motion.div
+                key={mode}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+                className="vintage-card p-8"
               >
-                {isAnimating ? "Pause" : "Replay"}
-              </button>
-            </motion.div>
+                <MandalavyuhaVisual
+                  width={600}
+                  height={600}
+                  animate={isAnimating}
+                  mode={mode}
+                />
+              </motion.div>
+            </div>
+
+            {/* Information Panel */}
+            <div className="lg:col-span-1">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="space-y-6 sticky top-24"
+              >
+                {(mode === "build" || mode === "simulate") && (
+                  <div className="vintage-card ornamental-card p-6">
+                    <h3 className="text-lg font-bold mb-6" style={{ color: 'var(--saffron)' }}>
+                      {modeContent[mode].title}
+                    </h3>
+                    <ul className="space-y-4">
+                      {modeContent[mode].items.map((item, idx) => (
+                        <li key={idx} className="flex gap-3 text-sm" style={{ color: 'var(--ink-light)' }}>
+                          <span className="font-bold flex-shrink-0" style={{ color: 'var(--saffron)' }}>
+                            {mode === "build" ? `${idx + 1}.` : "•"}
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {mode === "explain" && (
+                  <div className="space-y-4">
+                    {modeContent.explain.zones.map((zone, idx) => (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: idx * 0.1 }}
+                        className="vintage-card p-5"
+                      >
+                        <h4 className="font-bold text-base mb-2" style={{ color: 'var(--saffron)' }}>
+                          {zone.title}
+                        </h4>
+                        <p className="text-sm leading-relaxed" style={{ color: 'var(--ink-light)' }}>
+                          {zone.desc}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+
+                <button
+                  onClick={() => setIsAnimating(!isAnimating)}
+                  className="w-full px-6 py-3 rounded-md font-bold hover:opacity-90 transition-all text-sm"
+                  style={{ 
+                    backgroundColor: 'var(--saffron)', 
+                    color: 'var(--parchment-light)',
+                    boxShadow: '0 4px 12px rgba(196, 132, 29, 0.3)'
+                  }}
+                >
+                  {isAnimating ? "Pause Animation" : "Replay Animation"}
+                </button>
+              </motion.div>
+            </div>
           </div>
         </div>
-
-        {/* Historical context */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-16 border-t-2 border-[var(--border-vintage)] pt-12"
-        >
-          <h2 className="text-2xl font-bold mb-8 text-center tracking-wide" style={{ color: 'var(--saffron)' }}>
-            Mandala Philosophy in Warfare
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            <div 
-              className="rounded-lg p-6"
-              style={{ 
-                background: 'linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%)',
-                border: '1px solid var(--border-vintage)'
-              }}
-            >
-              <h3 className="font-bold text-base mb-3" style={{ color: 'var(--brass)' }}>Sacred Geometry</h3>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--ink-light)' }}>
-                The Mandalavyuha applies sacred geometric principles to military strategy.
-                The perfect circle represents unity, while concentric rings symbolize
-                layers of cosmic protection.
-              </p>
-            </div>
-            <div 
-              className="rounded-lg p-6"
-              style={{ 
-                background: 'linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%)',
-                border: '1px solid var(--border-vintage)'
-              }}
-            >
-              <h3 className="font-bold text-base mb-3" style={{ color: 'var(--brass)' }}>Comprehensive Defense</h3>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--ink-light)' }}>
-                Unlike formations for specific attack vectors, Mandalavyuha provides
-                360-degree protection equally through strategic depth.
-              </p>
-            </div>
-          </div>
-        </motion.div>
       </div>
 
-      {/* Footer navigation */}
-      <div className="border-t-2 border-[var(--border-vintage)] mt-16 py-10 px-8">
-        <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <Link href="/garudavyuha" className="text-sm transition-colors" style={{ color: 'var(--brass)' }}>
-            ← Previous Formation
+      {/* Philosophical Foundation */}
+      <section className="border-t-2 border-[var(--border-vintage)] section-padding" style={{ backgroundColor: 'rgba(232, 212, 168, 0.3)' }}>
+        <div className="container-centered">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: 'var(--saffron)' }}>
+            Philosophical Foundation
+          </h2>
+          <p className="text-center text-base mb-16 max-w-2xl mx-auto" style={{ color: 'var(--ink-light)' }}>
+            The Mandalavyuha merges sacred geometry with military strategy
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {[
+              {
+                title: "Cosmic Alignment",
+                desc: "The mandala structure mirrors the universe itself—circles represent infinite cycles, squares represent the material world, and triangles represent transformation. This cosmic harmony creates psychological confidence in defenders."
+              },
+              {
+                title: "Balanced Defense",
+                desc: "Unlike asymmetric formations, Mandalavyuha offers equal defensive strength in all directions. No matter where the enemy attacks, they face a geometrically optimized counter-force that disperses their momentum."
+              }
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="vintage-card ornamental-card p-8"
+              >
+                <h3 className="font-bold text-xl mb-4" style={{ color: 'var(--brass)' }}>{item.title}</h3>
+                <p className="text-base leading-relaxed" style={{ color: 'var(--ink-light)' }}>
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Quote */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="vintage-card ornamental-card p-10 mt-16 max-w-3xl mx-auto text-center"
+          >
+            <p className="text-lg md:text-xl italic leading-relaxed mb-4" style={{ color: 'var(--ink)' }}>
+              "As above, so below. As within, so without."
+            </p>
+            <p className="text-sm" style={{ color: 'var(--brass)' }}>
+              — Ancient Hermetic Principle reflected in Mandalavyuha design
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer Navigation */}
+      <footer className="border-t-2 border-[var(--border-vintage)] section-padding-sm">
+        <div className="container-centered flex flex-col sm:flex-row justify-between items-center gap-6">
+          <Link 
+            href="/garudavyuha" 
+            className="flex items-center gap-2 text-sm font-medium transition-all hover:text-[var(--saffron)]" 
+            style={{ color: 'var(--brass)' }}
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M15 10H5M5 10L10 5M5 10L10 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Previous Formation
           </Link>
-          <Link href="/" className="text-sm font-semibold" style={{ color: 'var(--saffron)' }}>
+          <Link 
+            href="/" 
+            className="font-bold text-sm" 
+            style={{ color: 'var(--saffron)' }}
+          >
             Home
           </Link>
-          <Link href="/chakravyuha" className="text-sm transition-colors" style={{ color: 'var(--brass)' }}>
-            Next Formation →
+          <Link 
+            href="/chakravyuha" 
+            className="flex items-center gap-2 text-sm font-medium transition-all hover:text-[var(--saffron)]" 
+            style={{ color: 'var(--brass)' }}
+          >
+            Next Formation
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M5 10H15M15 10L10 5M15 10L10 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </Link>
         </div>
-      </div>
+      </footer>
     </main>
   );
 }

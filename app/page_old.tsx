@@ -35,6 +35,7 @@ export default function Home() {
       description:
         "Circular formation with rotating rings that ensnare advancing enemies. The center holds command, while outer rings provide defense and mobility.",
       path: "/chakravyuha",
+      color: "from-amber-600 to-orange-500",
     },
     {
       title: "Garudavyuha",
@@ -42,6 +43,7 @@ export default function Home() {
       description:
         "Forward-facing with extended wings for pincer attacks. Named after the eagle, it enables rapid encirclement and strategic advantage.",
       path: "/garudavyuha",
+      color: "from-yellow-600 to-amber-500",
     },
     {
       title: "Mandalavyuha",
@@ -49,6 +51,7 @@ export default function Home() {
       description:
         "Concentric circular defensive rings protecting the core. Each ring provides graduated defense while maintaining command visibility.",
       path: "/mandalavyuha",
+      color: "from-orange-600 to-amber-500",
     },
   ];
 
@@ -139,106 +142,86 @@ export default function Home() {
           </Link>
         </div>
       </nav>
-
-      {/* Formation Cards */}
-      <section className="section-padding-lg">
-        <div className="container-centered">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: 'var(--ink)' }}>
-              The Three Sacred Formations
-            </h2>
-            <p className="text-base md:text-lg max-w-2xl mx-auto" style={{ color: 'var(--ink-light)' }}>
-              Each Vyuha represents centuries of tactical refinement and geometric perfection
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
-            {formations.map((formation, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                viewport={{ once: true, margin: "-50px" }}
-                className="group"
-              >
-                <Link href={formation.path}>
-                  <div 
-                    className="vintage-card ornamental-card h-full p-8 cursor-pointer flex flex-col"
-                  >
-                    {/* Card number badge */}
-                    <div className="flex items-start justify-between mb-6">
-                      <div 
-                        className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm border-2"
-                        style={{ 
-                          borderColor: 'var(--saffron)',
-                          color: 'var(--saffron)',
-                          backgroundColor: 'var(--parchment-light)'
-                        }}
-                      >
-                        {String(idx + 1).padStart(2, '0')}
-                      </div>
-                    </div>
-                    
-                    <h3 className="text-2xl md:text-3xl font-bold mb-3 tracking-wide group-hover:text-[var(--saffron)] transition-colors" 
-                        style={{ color: 'var(--ink)' }}>
-                      {formation.title}
-                    </h3>
-                    
-                    <p className="text-sm font-semibold mb-6 tracking-widest uppercase" 
-                       style={{ color: 'var(--brass)', letterSpacing: '0.1em' }}>
-                      {formation.subtitle}
-                    </p>
-                    
-                    <div className="divider my-6"></div>
-                    
-                    <p className="text-sm md:text-base leading-relaxed mb-8 flex-grow" 
-                       style={{ color: 'var(--ink-light)' }}>
-                      {formation.description}
-                    </p>
-                    
-                    <div className="flex items-center gap-3 text-sm font-bold group-hover:gap-5 transition-all" 
-                         style={{ color: 'var(--saffron-dark)' }}>
-                      <span>Explore Formation</span>
-                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="group-hover:translate-x-1 transition-transform">
-                        <path d="M5 10H15M15 10L10 5M15 10L10 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+            reveal the mathematical precision and tactical genius of Vyuha
+            formations.
+          </p>
         </div>
-      </section>
+      </header>
 
-      {/* Features section */}
-      <section className="section-padding border-t-2 border-[var(--border-vintage)]" style={{ backgroundColor: 'rgba(232, 212, 168, 0.3)' }}>
-        <div className="container-centered">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" style={{ color: 'var(--saffron)' }}>
+      {/* Navigation */}
+      <nav className="sticky top-0 z-40 backdrop-blur-sm border-b border-[var(--border-vintage)] py-3 md:py-4 px-4 md:px-8" style={{ backgroundColor: 'rgba(244, 228, 193, 0.95)' }}>
+        <div className="max-w-6xl mx-auto flex justify-center gap-8 md:gap-12">
+          <Link href="/" className="font-semibold text-sm md:text-base tracking-wide" style={{ color: 'var(--saffron)' }}>
+            Home
+          </Link>
+          <Link
+            href="/about"
+            className="text-sm md:text-base tracking-wide hover:opacity-100 transition-opacity"
+            style={{ color: 'var(--brass)', opacity: 0.8 }}
+          >
+            About
+          </Link>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <div className="max-w-6xl mx-auto px-4 md:px-8 lg:px-12 py-12 md:py-16 lg:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20">
+          {formations.map((formation, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: idx * 0.2 }}
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              <Link href={formation.path}>
+                <div 
+                  className="group relative rounded-lg p-6 md:p-8 cursor-pointer transition-all duration-300 hover:shadow-2xl"
+                  style={{ 
+                    background: 'linear-gradient(135deg, var(--parchment-light) 0%, var(--parchment) 100%)',
+                    border: '2px solid var(--border-vintage)',
+                    boxShadow: '0 4px 20px var(--shadow-warm)'
+                  }}
+                >
+                  <h3 className="text-lg md:text-xl font-bold mb-2 tracking-wide" style={{ color: 'var(--saffron)' }}>
+                    {formation.title}
+                  </h3>
+                  <p className="text-xs md:text-sm font-medium mb-4 md:mb-5 tracking-wide" style={{ color: 'var(--brass)' }}>
+                    {formation.subtitle}
+                  </p>
+                  <div className="divider my-3 md:my-4 max-w-16"></div>
+                  <p className="text-xs md:text-sm leading-relaxed mb-5 md:mb-6" style={{ color: 'var(--ink-light)' }}>
+                    {formation.description}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs md:text-sm font-semibold group-hover:translate-x-1 transition-transform" style={{ color: 'var(--saffron-dark)' }}>
+                    Explore Formation →
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Features section */}
+        <div className="mt-16 md:mt-24 border-t-2 border-[var(--border-vintage)] pt-12 md:pt-16">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-center mb-8 md:mb-12 tracking-wide" style={{ color: 'var(--saffron)' }}>
             Interactive Features
           </h2>
-          <p className="text-center text-base mb-16 max-w-2xl mx-auto" style={{ color: 'var(--ink-light)' }}>
-            Experience ancient military strategy through modern visualization technology
-          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {[
               {
                 title: "Build Animation",
-                desc: "Watch formations construct themselves with ceremonial precision and geometric accuracy",
-                icon: "🏗️"
+                desc: "Watch formations construct themselves with ceremonial precision",
               },
               {
                 title: "Live Simulation",
-                desc: "See how enemy advances trigger tactical responses and strategic movements",
-                icon: "⚔️"
+                desc: "See how enemy advances trigger tactical responses",
               },
               {
                 title: "Explain Mode",
-                desc: "Detailed breakdown of zones, roles, and strategic advantages of each formation",
-                icon: "📜"
+                desc: "Detailed breakdown of zones, roles, and strategic advantages",
               },
             ].map((feature, idx) => (
               <motion.div
@@ -247,37 +230,29 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: idx * 0.15 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center px-4"
               >
                 <div 
-                  className="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center text-3xl border-2 vintage-card"
+                  className="w-12 h-12 md:w-14 md:h-14 mx-auto mb-4 md:mb-5 rounded-full flex items-center justify-center text-base md:text-lg font-bold"
                   style={{ 
-                    borderColor: 'var(--saffron)',
+                    border: '2px solid var(--saffron)',
+                    color: 'var(--saffron)',
                     backgroundColor: 'var(--parchment-light)'
                   }}
                 >
-                  {feature.icon}
+                  {idx + 1}
                 </div>
-                <h3 className="font-bold text-xl mb-3" style={{ color: 'var(--ink)' }}>{feature.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--ink-light)' }}>{feature.desc}</p>
+                <h3 className="font-semibold text-base md:text-lg mb-2 md:mb-3" style={{ color: 'var(--ink)' }}>{feature.title}</h3>
+                <p className="text-xs md:text-sm leading-relaxed" style={{ color: 'var(--ink-light)' }}>{feature.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Footer */}
-      <footer className="border-t-2 border-[var(--border-vintage)] section-padding-sm text-center">
-        <div className="container-centered">
-          <p className="text-sm tracking-wide mb-4" style={{ color: 'var(--brass)' }}>
-            Vyuha Rachana © 2026 — Exploring Ancient Indian Military Science
-          </p>
-          <div className="flex items-center justify-center gap-4 mt-4">
-            <div className="h-px flex-1 max-w-32 bg-gradient-to-r from-transparent to-[var(--border-vintage)]"></div>
-            <span className="text-[var(--saffron)]">◆</span>
-            <div className="h-px flex-1 max-w-32 bg-gradient-to-l from-transparent to-[var(--border-vintage)]"></div>
-          </div>
-        </div>
+      <footer className="border-t-2 border-[var(--border-vintage)] mt-16 md:mt-24 py-8 md:py-12 px-4 md:px-8 text-center">
+        <p className="text-xs md:text-sm tracking-wide" style={{ color: 'var(--brass)' }}>Vyuha Rachana © 2026 — Exploring Ancient Indian Military Science</p>
       </footer>
     </main>
   );
